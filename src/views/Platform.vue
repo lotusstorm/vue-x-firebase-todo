@@ -22,7 +22,7 @@
         background-color: $platform-bg-color;
         border-radius: 5px;
 
-        height: 90%;
+        height: 80%;
         max-height: 600px;
         width: 98%;
         max-width: 1000px;

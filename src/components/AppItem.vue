@@ -6,7 +6,7 @@
         <p
                 :class="['item__content', modifier]"
                 :title="content"
-        >{{ index+1 }})  {{ content | validContent }}</p>
+        >{{ index+1 }})  {{ validContent }}</p>
         <div class="item__after">
             <slot name="after"></slot>
         </div>
@@ -22,10 +22,16 @@
 			modifier: String,
         },
         filters: {
-            validContent(value) {
-                return  value.length >= 10 ? `${value.slice(0, 10)}...` : value;
-            }
-        }
+
+        },
+		computed: {
+			validContent() {
+				console.log(this.content);
+				return '1'
+				// return  value.length >= 10 ? `${value.slice(0, 10)}...` : value;
+
+			}
+		}
 	}
 </script>
 

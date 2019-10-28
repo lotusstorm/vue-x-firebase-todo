@@ -76,10 +76,12 @@
                 return newArr
             },
             deleteFromData(e) {
-                console.log(e.target.id)
+                this.$firebase.database().ref('todo').child(e.target.id).remove()
+                        .catch(error => console.log(error))
             },
             check(e) {
-                console.log(e.target.id)
+                this.$firebase.database().ref('todo').child(e.target.id).update({check: e.target.checked})
+                        .catch(error => console.log(error))
             },
             to(id) {
                 this.$router.push({name: 'edit', params: {id}})

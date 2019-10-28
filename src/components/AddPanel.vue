@@ -1,14 +1,18 @@
 <template>
     <div class="add-panel">
-
-        <label for="add" ></label>
         <textarea
                 name="textarea"
                 id="add"
                 class="add-panel__textarea"
                 placeholder="Enter a title for this card..."
+                v-model="value"
         >
         </textarea>
+        <label
+                for="add"
+                class="input-error"
+                v-show="isError"
+        > {{ errorValue }} </label>
 
         <input
                 type="button"
@@ -20,24 +24,34 @@
 </template>
 
 <script>
-    import { mapActions } from 'vuex'
+    // import { database } from '@/firebase'
 
 	export default {
 		name: "AppAddPanel",
+        data() {
+            return {
+                value: '',
+                isError: false,
+                errorValue: '',
+            }
+        },
         methods: {
-            ...mapActions([
-                'actionData'
-            ]),
             addToData() {
-                let value = document.getElementById('add').value;
 
-                let data = {
-                    id: Math.ceil(Math.random()*1000000),
-                    content: value,
-                    date: new Date().toISOString(),
-                    check: false
-                };
-                this.actionData(data);
+                if (this.value) {
+                    let data = {
+                        content: this.value,
+                        date: new Date().toISOString(),
+                        check: false
+                    };
+                    this.$firebase.database().ref('todo').push(data)
+                            .catch(error => console.log(error));
+
+                    this.value = '';
+                } else {
+                    this.isError = !this.isError;
+                    this.errorValue = 'Invalid input'
+                }
             }
         }
 	}
@@ -84,5 +98,16 @@
             color: $btn-text-color;
             padding: 5px;
         }
+    }
+
+    .input-error {
+        width: 100%;
+        border-radius: 5px;
+        background-color: crimson;
+        border: 2px solid red;
+        @include large-text;
+        font-size: 1rem;
+        color: $btn-text-color;
+        padding: 5px;
     }
 </style>

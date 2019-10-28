@@ -1,15 +1,17 @@
 <template>
-    <div class="checkbox">
+    <div class="check">
 		<label
 				:for="id"
+				class="check__wrapper"
 		>
 			<input
 				type="checkbox"
 				:id="id"
 				:checked="check"
 				@change="Event"
+				class="check__box"
 			>
-        </label>
+		</label>
     </div>
 </template>
 
@@ -32,5 +34,24 @@
 </script>
 
 <style scoped lang="scss">
+
+	.check {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+
+		&__box {
+			width: 30px;
+			height: 30px;
+		}
+
+		&__wrapper {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			height: 100%;
+			width: 50px;
+		}
+	}
 
 </style>

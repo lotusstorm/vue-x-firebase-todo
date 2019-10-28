@@ -1,39 +1,38 @@
 <template>
     <div class="edit">
-        <router-link to="/">Back</router-link>
-        <label for="put"></label>
-        <textarea
-                name="textarea"
-                class="edit__textarea"
-                id="put">
+        <button
+            type="button"
+            @click="to"
+            class="edit__button"
+        >back</button>
+        <div class="edit__wrapper">
+            <label for="put"></label>
+            <textarea
+                    name="textarea"
+                    v-model="value"
+                    class="edit__textarea"
+                    id="put"
+                    placeholder="Edit new value..."
+            >
         </textarea>
-
-        <label for="date"></label>
-        <input
-                type="datetime-local"
-                v-model="date"
-                class="edit__date"
-                id="date"
-        >
-
-        <input
-                type="button"
-                value="save"
-                class="edit__button"
-                @click="save"
-        >
+            <input
+                    type="button"
+                    value="save"
+                    class="edit__button"
+                    @click="save"
+            >
+        </div>
     </div>
 </template>
 
 <script>
-    import { mapGetters, mapActions } from 'vuex'
+    import { mapGetters } from 'vuex'
 
 	export default {
 		name: "Edit",
         data() {
             return {
                 value: null,
-                date: null
             }
         },
         computed: {
@@ -42,42 +41,67 @@
             ]),
         },
         methods: {
-            ...mapActions([
-                'putInData'
-            ]),
             save() {
                 let data = {
-                    id: this.$route.params.id,
                     content: this.value,
-                    date: this.date,
+                    date: new Date().toISOString(),
                 };
-                this.putInData(data);
-            }
+
+                this.$firebase.database().ref('todo').child(this.$route.params.id).update(data)
+                    .catch(error => console.log(error));
+            },
+            to() {
+                this.$router.push({name: 'items'})
+            },
         }
 	}
 </script>
 
 <style scoped lang="scss">
     .edit {
-        display: flex;
-        flex-direction: column;
+        height: 100%;
+        width: 100%;
 
-        &__textarea,
-        &__button,
-        &__date {
+        &__wrapper {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            margin-bottom: 5px;
             width: 100%;
+            height: 80%;
         }
 
         &__textarea {
+            @include large-text;
+            display: flex;
+            height: 100px;
+            border-radius: 5px;
+            border: none;
+            border-bottom: 2px solid $textarea-border-color;
+            width: 100%;
+            margin-bottom: 3px;
+            text-align: left;
+            font-size: 2rem;
+            padding: 3px;
 
+            &::placeholder {
+                opacity: .5;
+                text-align: left;
+            }
         }
 
         &__button {
-
-        }
-
-        &__date {
-
+            @include large-text;
+            display: flex;
+            border-radius: 5px;
+            align-items: center;
+            justify-content: center;
+            background-color: $btn-bg-color;
+            border: none;
+            border-bottom: 2px solid $btn-border-color;
+            color: $btn-text-color;
+            padding: 5px;
         }
     }
 </style>

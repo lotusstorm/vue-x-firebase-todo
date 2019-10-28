@@ -7,7 +7,7 @@ import  * as firebase from 'firebase/app';
 import 'firebase/firebase-database';
 
 
-const firebaseApp = firebase.initializeApp({
+export const firebaseApp = firebase.initializeApp({
 	apiKey: 'AIzaSyDzMkLSQryt6VRiMzoderK6-zw9bouqxqU',
 	authDomain: 'todo-vue-8a91d.firebaseio.com',
 	databaseURL: 'https://todo-vue-8a91d.firebaseio.com',
@@ -15,5 +15,4 @@ const firebaseApp = firebase.initializeApp({
 	storageBucket: '',
 });
 
-export const database = firebaseApp.database();
 
