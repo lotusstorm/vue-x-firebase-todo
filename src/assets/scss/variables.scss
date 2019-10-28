@@ -1,0 +1,36 @@
+$text-color: #2f4556;
+$platform-bg-color: #e0e3e6;
+$main-bg-color: #c5a377;
+$item-bg-color: #ffffff;
+$item-border-color: #b2b9bf;
+$item-hover-color: #f5f6f7;
+$textarea-bg-color: #ffffff;
+$textarea-border-color: #b2b9bf;
+$btn-bg-color: #7ca65c;
+$btn-border-color: #658647;
+$btn-text-color: #ffffff;
+
+
+@mixin large-text {
+	font: {
+		family: 'Avenir', Helvetica, Arial, sans-serif;
+		size: 2rem;
+		weight: bold;
+	}
+	text-align: center;
+	color: $text-color;
+}
+
+@mixin for-size($size) {
+	@if $size == phone-only {
+		@media (max-width: 599px) { @content; }
+	} @else if $size == tablet-portrait-up {
+		@media (min-width: 600px) { @content; }
+	} @else if $size == tablet-landscape-up {
+		@media (min-width: 900px) { @content; }
+	} @else if $size == desktop-up {
+		@media (min-width: 1200px) { @content; }
+	} @else if $size == big-desktop-up {
+		@media (min-width: 1800px) { @content; }
+	}
+}
