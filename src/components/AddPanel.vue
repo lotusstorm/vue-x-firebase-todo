@@ -10,7 +10,7 @@
         </textarea>
         <label
                 for="add"
-                class="input-error"
+                class="add-panel__error"
                 v-show="isError"
         > {{ errorValue }} </label>
 
@@ -24,20 +24,25 @@
 </template>
 
 <script>
-    // import { database } from '@/firebase'
+    import { mapActions } from 'vuex'
 
-	export default {
+    export default {
 		name: "AppAddPanel",
         data() {
             return {
-                value: '',
+                value: null,
                 isError: false,
-                errorValue: '',
+                errorValue: null,
             }
         },
         methods: {
+            ...mapActions([
+                'actionCurrentPage'
+            ]),
+            /**
+             * Добавляет новый елемент в БД
+             * */
             addToData() {
-
                 if (this.value) {
                     let data = {
                         content: this.value,
@@ -47,9 +52,11 @@
                     this.$firebase.database().ref('todo').push(data)
                             .catch(error => console.log(error));
 
-                    this.value = '';
+                    this.value = null;
+                    this.isError = false;
+                    this.actionCurrentPage(0)
                 } else {
-                    this.isError = !this.isError;
+                    this.isError = true;
                     this.errorValue = 'Invalid input'
                 }
             }
@@ -79,6 +86,7 @@
             text-align: left;
             font-size: 2rem;
             padding: 3px;
+            box-sizing: border-box;
 
             &::placeholder {
                 opacity: .5;
@@ -98,16 +106,9 @@
             color: $btn-text-color;
             padding: 5px;
         }
-    }
 
-    .input-error {
-        width: 100%;
-        border-radius: 5px;
-        background-color: crimson;
-        border: 2px solid red;
-        @include large-text;
-        font-size: 1rem;
-        color: $btn-text-color;
-        padding: 5px;
+        &__error {
+            @include error;
+        }
     }
 </style>

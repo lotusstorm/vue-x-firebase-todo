@@ -1,12 +1,14 @@
 <template>
-    <li class="item">
+    <li :class="['item', {'item--complete' : check}]">
         <div class="item__before">
             <slot name="before"></slot>
         </div>
         <p
                 :class="['item__content', modifier]"
                 :title="content"
-        >{{ index+1 }})  {{ validContent }}</p>
+        >
+			<span class="item__text">{{ index+1 }})  {{ content | validContent }}</span>
+        </p>
         <div class="item__after">
             <slot name="after"></slot>
         </div>
@@ -20,18 +22,16 @@
 			content: String,
 			index: Number,
 			modifier: String,
+            check: Boolean,
         },
-        filters: {
-
-        },
-		computed: {
-			validContent() {
-				console.log(this.content);
-				return '1'
-				// return  value.length >= 10 ? `${value.slice(0, 10)}...` : value;
-
+		filters: {
+			/**
+			 * Обрезает строку если ее длина больше чем нужно
+			 * */
+			validContent(value) {
+				return  value.length >= 5 ? `${value.slice(0, 5)}...` : value;
 			}
-		}
+		},
 	}
 </script>
 
@@ -43,9 +43,10 @@
         border-radius: 5px;
         align-items: center;
         border-bottom: 2px solid $item-border-color;
-        margin-bottom: 5px;
+        margin-bottom: 8px;
         cursor: pointer;
 		width: 100%;
+		padding: 2px 0;
 
         &__before {
             display: flex;
@@ -72,6 +73,11 @@
 
 		&:hover {
 			background-color: $item-hover-color;
-		}
+        }
+
+        &--complete {
+            background-color: #7ca65c;
+            transition: background-color .5s;
+        }
     }
 </style>

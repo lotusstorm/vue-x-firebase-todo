@@ -22,7 +22,11 @@
             ...mapGetters([
                 'getTodoData',
                 'getItemsOnPage',
+                'getCurrentPage',
             ]),
+            /**
+             * Кнопки для переключения страний
+             * */
             items() {
                 return Math.ceil(this.getTodoData.length/this.getItemsOnPage)
             }
@@ -31,6 +35,9 @@
             ...mapActions([
                 'actionCurrentPage'
             ]),
+            /**
+             * Переключатель между страницами
+             * */
             swap(e) {
                 this.actionCurrentPage(e.target.value - 1);
             }
@@ -45,5 +52,9 @@
         justify-content: center;
         align-self: center;
         width: 100%;
+    }
+
+    .active {
+        background-color: #ffffff;
     }
 </style>

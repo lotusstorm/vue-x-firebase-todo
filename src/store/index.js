@@ -29,7 +29,7 @@ export default new Vuex.Store({
 							id: key,
 							date: obj[key].date,
 							content: obj[key].content,
-							skip: obj[key].skip,
+							check: obj[key].check,
 						})
 					}
 					const sortData = newData.reverse();

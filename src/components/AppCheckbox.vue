@@ -19,13 +19,13 @@
 	export default {
 		name: "AppCheckbox",
         props: {
-			check: {
-				type: Boolean,
-                default: false
-			},
+			check: Boolean,
             id: [String, Number]
         },
         methods: {
+			/**
+			 * Пробрасывет event в родительский компонент
+			 * */
             Event(e) {
                 this.$emit('event', e)
             }

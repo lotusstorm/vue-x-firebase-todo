@@ -28,21 +28,12 @@
         max-width: 1000px;
         min-width: 320px;
 
-        &__header,
-        &__content,
-        &__footer {
-            width: 95%;
-        }
-
-        &__header {
-
-        }
-
         &__content {
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 98%;
+            height: 90%;
+            width: 95%;
         }
     }
 </style>
