@@ -1,5 +1,5 @@
 <template>
-    <li :class="['item', {'item--complete' : check}]">
+    <div :class="['item', {'item--complete' : check}]">
         <div class="item__before">
             <slot name="before"></slot>
         </div>
@@ -12,7 +12,7 @@
         <div class="item__after">
             <slot name="after"></slot>
         </div>
-    </li>
+    </div>
 </template>
 
 <script>

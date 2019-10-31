@@ -1,7 +1,7 @@
 <template>
 	<div class="items">
 		<app-add-panel></app-add-panel>
-		<ul class="items__content">
+		<div class="items__content">
 			<app-item
 					v-for="(item, index) in items"
 					:key="index"
@@ -28,7 +28,7 @@
 						@event="deleteFromData"
 				></app-controller>
 			</app-item>
-		</ul>
+		</div>
 		<app-pagination></app-pagination>
 	</div>
 </template>
@@ -102,14 +102,14 @@
 					.catch(error => console.log(error))
 			},
 			/**
-			 *
+			 * Ставит и снимает отметку о выполнении
 			 * */
 			check(e) {
 				this.$firebase.database().ref('todo').child(e.target.id).update({check: e.target.checked})
 					.catch(error => console.log(error))
 			},
 			/**
-			 *
+			 * Переход между страницами
 			 * */
 			to(id) {
 				this.$router.push({name: 'edit', params: {id}})
