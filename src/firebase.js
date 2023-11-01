@@ -8,7 +8,7 @@ import 'firebase/firebase-database';
 
 
 export const firebaseApp = firebase.initializeApp({
-	apiKey: 'AIzaSyDzMkLSQryt6VRiMzoderK6-zw9bouqxqU',
+	apiKey: '',
 	authDomain: 'todo-vue-8a91d.firebaseio.com',
 	databaseURL: 'https://todo-vue-8a91d.firebaseio.com',
 	projectId: 'todo-vue-8a91d',
